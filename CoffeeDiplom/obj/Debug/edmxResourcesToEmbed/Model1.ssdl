@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Coffee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Название" Type="nchar" MaxLength="20" />
+    <Property Name="Стоимость" Type="int" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Номер_заказа" />
+    </Key>
+    <Property Name="Номер_заказа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Имя_клиента" Type="nchar" MaxLength="20" />
+    <Property Name="Название_кофе" Type="int" />
+    <Property Name="Количество" Type="int" />
+    <Property Name="Обьем" Type="int" />
+    <Property Name="Доп_игредиенты" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="nchar" MaxLength="15" Nullable="false" />
+    <Property Name="password" Type="nchar" MaxLength="15" />
+    <Property Name="isAdmin" Type="bit" />
+  </EntityType>
+  <Association Name="FK_Order_Coffee">
+    <End Role="Coffee" Type="Self.Coffee" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coffee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Название_кофе" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ModelContainer">
+    <EntitySet Name="Coffee" EntityType="Self.Coffee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Order_Coffee" Association="Self.FK_Order_Coffee">
+      <End Role="Coffee" EntitySet="Coffee" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Coffee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="Название" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Стоимость" Type="Int32" />
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Order_Coffee" FromRole="Coffee" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Номер_заказа" />
+    </Key>
+    <Property Name="Номер_заказа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Имя_клиента" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="Название_кофе" Type="Int32" />
+    <Property Name="Количество" Type="Int32" />
+    <Property Name="Обьем" Type="Int32" />
+    <Property Name="Доп_игредиенты" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Coffee" Relationship="Self.FK_Order_Coffee" FromRole="Order" ToRole="Coffee" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="login" />
+    </Key>
+    <Property Name="login" Type="String" MaxLength="15" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+    <Property Name="isAdmin" Type="Boolean" />
+  </EntityType>
+  <Association Name="FK_Order_Coffee">
+    <End Role="Coffee" Type="Self.Coffee" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Coffee">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="Название_кофе" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="coffee_houseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Coffee" EntityType="Self.Coffee" />
+    <EntitySet Name="Order" EntityType="Self.Order" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_Order_Coffee" Association="Self.FK_Order_Coffee">
+      <End Role="Coffee" EntitySet="Coffee" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

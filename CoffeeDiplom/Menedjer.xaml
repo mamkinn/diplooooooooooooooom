@@ -1,0 +1,23 @@
+﻿<Window x:Class="CoffeeDiplom.Menedjer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CoffeeDiplom"
+        mc:Ignorable="d"
+        Title="Menedjer" Height="500" Width="850" Icon="c.jpg">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+        <Button Content="Назад"   Margin="0,10,0,10" Height="30" Width="100" Click="Nazad" Background="red"/>
+        <Button Content="Coffee"  Margin="0,10,0,10" Height="30" Width="100" Click="Coffee"/>
+        <Button Content="Заказы"  Margin="0,10,0,10" Height="30" Width="100" Click="Zakaz"/>
+        </StackPanel>
+        
+        <Frame x:Name="MFrame" NavigationUIVisibility="Hidden" Grid.Row="1" Grid.Column="1"></Frame>
+    </Grid>
+</Window>
