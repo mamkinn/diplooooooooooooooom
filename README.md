@@ -1,2 +1,2 @@
-# diplooooooooooooooom
-Мой курсовой проект 
+# diplom
+Дипломный проект
